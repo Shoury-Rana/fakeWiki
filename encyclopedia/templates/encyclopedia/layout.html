@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row">
+            <div class="sidebar col-lg-2 col-md-3">
+                <h2>Wiki</h2>
+                <form action="{% url 'encyclopedia:search'%}" method='post'>
+                    {% csrf_token %}
+                    {{ search }}
+                    <input type="submit">
+                </form>
+                <div>
+                    <a href="{% url 'encyclopedia:index' %}">Home</a>
+                </div>
+                <div>
+                    <a href="{% url 'encyclopedia:createPage' %}">Create new page</a>
+                </div>
+                <div>
+                    <a href="{% url 'encyclopedia:random' %}">Random page</a>
+                </div>
+                <div>
+                    {% if title %}
+                        <a href="{% url 'encyclopedia:edit' title %}">Edit page</a>
+                    {% endif %}  
+                </div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>
