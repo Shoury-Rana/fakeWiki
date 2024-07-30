@@ -1,1 +1,1 @@
-# fakeWiki.io
+# fakeWiki
